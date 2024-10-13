@@ -5,6 +5,18 @@ include(CheckIncludeFileCXX)
 #set(CMAKE_WARN_DEPRECATED YES)
 #set(CMAKE_WARN_UNUSED_CLI YES)
 
+#enable O3 flag
+if(NOT CMAKE_BUILD_TYPE)
+  set(CMAKE_BUILD_TYPE Release)
+endif()
+
+set(CMAKE_CXX_FLAGS "-Wall -Wextra")
+set(CMAKE_CXX_FLAGS_DEBUG "-g")
+set(CMAKE_CXX_FLAGS_RELEASE "-O3")
+
+#add lto
+set(CMAKE_INTERPROCEDURAL_OPTIMIZATION TRUE)
+
 #no warn
 add_compile_options(" -Wno-unused-variable -Wno-unused-function -Wno-error")
 
