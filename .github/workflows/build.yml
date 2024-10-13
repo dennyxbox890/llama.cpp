@@ -72,7 +72,7 @@ jobs:
         run: |
           mkdir build
           cd build
-          cmake .. -DLLAMA_FATAL_WARNINGS=OFF -DLLAMA_CURL=ON -DGGML_RPC=ON -DBUILD_SHARED_LIBS=OFF -DGGML_CUDA=ON -DGGML_VULKAN=ON
+          cmake .. -DLLAMA_FATAL_WARNINGS=OFF -DLLAMA_CURL=ON -DGGML_RPC=ON -DBUILD_SHARED_LIBS=ON -DGGML_CUDA=ON -DGGML_VULKAN=ON
           cmake --build . --config Release -j $(nproc)
 
       - name: Determine tag name
@@ -93,6 +93,8 @@ jobs:
         if: ${{ ( github.event_name == 'push' && github.ref == 'refs/heads/master' ) || github.event.inputs.create_release == 'true' }}
         run: |
           cp LICENSE ./build/bin/
+          cp $(find . -name "libllama.so") ./build/bin/
+          cp $(find . -name "libggml.so") ./build/bin/
           zip -r cudart-vulkan-llama-${{ steps.tag.outputs.name }}-bin-ubuntu-x64.zip ./build/bin/*
 
       - name: Upload artifacts
