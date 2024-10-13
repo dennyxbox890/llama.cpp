@@ -3,7 +3,10 @@ project("llama.cpp" C CXX)
 include(CheckIncludeFileCXX)
 
 #set(CMAKE_WARN_DEPRECATED YES)
-set(CMAKE_WARN_UNUSED_CLI YES)
+#set(CMAKE_WARN_UNUSED_CLI YES)
+
+#no warn
+add_compile_options(" -Wno-unused-variable -Wno-unused-function -Wno-error")
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
