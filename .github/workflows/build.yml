@@ -62,10 +62,13 @@ jobs:
       - name: Dependencies
         id: depends
         run: |
+          wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64/cuda-keyring_1.1-1_all.deb
+          sudo dpkg -i cuda-keyring_1.1-1_all.deb
           wget -qO - https://packages.lunarg.com/lunarg-signing-key-pub.asc | sudo apt-key add -
           sudo wget -qO /etc/apt/sources.list.d/lunarg-vulkan-jammy.list https://packages.lunarg.com/vulkan/lunarg-vulkan-jammy.list
           sudo apt-get update
-          sudo apt-get install build-essential libcurl4-openssl-dev nvidia-cuda-toolkit vulkan-sdk ccache
+          sudo apt-get install build-essential libcurl4-openssl-dev vulkan-sdk ccache cuda-toolkit-12-6
+          
 
       - name: Build
         id: cmake_build
