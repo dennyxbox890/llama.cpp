@@ -18,7 +18,7 @@ set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 set(CMAKE_INTERPROCEDURAL_OPTIMIZATION TRUE)
 
 #no warn
-add_compile_options(" -Wno-unused-variable -Wno-unused-function -Wno-error")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-unused-variable -Wno-unused-function -Wno-error")
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
