@@ -93,14 +93,14 @@ jobs:
         if: ${{ ( github.event_name == 'push' && github.ref == 'refs/heads/master' ) || github.event.inputs.create_release == 'true' }}
         run: |
           cp LICENSE ./build/bin/
-          zip -r cuda-vulkan-llama-${{ steps.tag.outputs.name }}-bin-ubuntu-x64.zip ./build/bin/*
+          zip -r cudart-vulkan-llama-${{ steps.tag.outputs.name }}-bin-ubuntu-x64.zip ./build/bin/*
 
       - name: Upload artifacts
         if: ${{ ( github.event_name == 'push' && github.ref == 'refs/heads/master' ) || github.event.inputs.create_release == 'true' }}
         uses: actions/upload-artifact@v4
         with:
-          path: cuda-vulkan-llama-${{ steps.tag.outputs.name }}-bin-ubuntu-x64.zip
-          name: cuda-vulkan-llama-bin-ubuntu-x64.zip
+          path: cudart-vulkan-llama-${{ steps.tag.outputs.name }}-bin-ubuntu-x64.zip
+          name: cudart-vulkan-llama-bin-ubuntu-x64.zip
 
   ubuntu-22-cmake-hip:
     runs-on: ubuntu-22.04
