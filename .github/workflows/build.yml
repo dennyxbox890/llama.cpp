@@ -101,74 +101,6 @@ jobs:
         with:
           path: cudart-vulkan-llama-${{ steps.tag.outputs.name }}-bin-ubuntu-x64.zip
           name: cudart-vulkan-llama-bin-ubuntu-x64.zip
-ubuntu-latest-shared-cmake:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Free Disk Space (Ubuntu)
-        uses: jlumbroso/free-disk-space@main
-        with:
-          # this might remove tools that are actually needed,
-          # if set to "true" but frees about 6 GB
-          tool-cache: true
-        
-          # all of these default to true, but feel free to set to
-          # "false" if necessary for your workflow
-          android: true
-          dotnet: true
-          haskell: true
-          large-packages: true
-          docker-images: true
-          swap-storage: true
-
-      - name: Clone
-        id: checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Dependencies
-        id: depends
-        run: |
-          wget -qO - https://packages.lunarg.com/lunarg-signing-key-pub.asc | sudo apt-key add -
-          sudo wget -qO /etc/apt/sources.list.d/lunarg-vulkan-jammy.list https://packages.lunarg.com/vulkan/lunarg-vulkan-jammy.list
-          sudo apt-get update
-          sudo apt-get install build-essential libcurl4-openssl-dev nvidia-cuda-toolkit vulkan-sdk
-
-      - name: Build
-        id: cmake_build
-        run: |
-          mkdir build
-          cd build
-          cmake .. -DLLAMA_FATAL_WARNINGS=OFF -DLLAMA_CURL=ON -DGGML_RPC=ON -DBUILD_SHARED_LIBS=ON -DGGML_CUDA=ON -DGGML_VULKAN=ON
-          cmake --build . --config Release -j $(nproc)
-
-      - name: Determine tag name
-        id: tag
-        shell: bash
-        run: |
-          BUILD_NUMBER="$(git rev-list --count HEAD)"
-          SHORT_HASH="$(git rev-parse --short=7 HEAD)"
-          if [[ "${{ env.BRANCH_NAME }}" == "master" ]]; then
-            echo "name=b${BUILD_NUMBER}" >> $GITHUB_OUTPUT
-          else
-            SAFE_NAME=$(echo "${{ env.BRANCH_NAME }}" | tr '/' '-')
-            echo "name=${SAFE_NAME}-b${BUILD_NUMBER}-${SHORT_HASH}" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Pack artifacts
-        id: pack_artifacts
-        if: ${{ ( github.event_name == 'push' && github.ref == 'refs/heads/master' ) || github.event.inputs.create_release == 'true' }}
-        run: |
-          cp LICENSE ./build/bin/
-          zip -r cudart-vulkan-llama-${{ steps.tag.outputs.name }}-bin-ubuntu-x64-k.zip ./build/bin/*
-
-      - name: Upload artifacts
-        if: ${{ ( github.event_name == 'push' && github.ref == 'refs/heads/master' ) || github.event.inputs.create_release == 'true' }}
-        uses: actions/upload-artifact@v4
-        with:
-          path: cudart-vulkan-llama-${{ steps.tag.outputs.name }}-bin-ubuntu-x64-k.zip
-          name: cudart-vulkan-llama-bin-ubuntu-x64-k.zip
 
   ubuntu-22-cmake-hip:
     runs-on: ubuntu-22.04
@@ -209,7 +141,6 @@ ubuntu-latest-shared-cmake:
 
     needs:
       - ubuntu-latest-cmake
-      - ubuntu-latest-shared-cmake
 
 
     steps:
