@@ -72,7 +72,7 @@ jobs:
         run: |
           mkdir build
           cd build
-          cmake .. -DLLAMA_FATAL_WARNINGS=OFF -DLLAMA_CURL=ON -DGGML_RPC=ON -DBUILD_SHARED_LIBS=ON -DGGML_CUDA=ON -DGGML_VULKAN=ON
+          cmake .. -DLLAMA_FATAL_WARNINGS=OFF -DBUILD_SHARED_LIBS=ON -DGGML_CUDA=ON -DGGML_VULKAN=ON
           cmake --build . --config Release -j $(nproc)
 
       - name: Determine tag name
