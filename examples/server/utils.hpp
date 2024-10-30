@@ -266,8 +266,10 @@ static llama_tokens format_infill(
     }
 
     // for now pick FIM context to fit in a batch (ratio prefix:suffix = 3:1, TODO: configurable?)
-    const int n_suffix_take = std::min<int>(tokens_suffix.size(),   (n_batch/4));
-    const int n_prefix_take = std::min<int>(tokens_prefix.size(), 3*(n_batch/4) - 3);
+    const int n_prefix_take = std::min<int>(tokens_prefix.size(),                3*(n_batch/4));
+    const int n_suffix_take = std::min<int>(tokens_suffix.size(), std::max<int>(0, (n_batch/4) - (2 + tokens_prompt.size())));
+
+    SRV_DBG("n_prefix_take = %d, n_suffix_take = %d, total = %d\n", n_prefix_take, n_suffix_take, (n_prefix_take + n_suffix_take));
 
     // fill the rest of the context with extra chunks
     const int n_extra_take = std::min<int>(std::max<int>(0, n_ctx - (n_batch) - 2*n_predict), extra_tokens.size());
@@ -605,7 +607,7 @@ static json oaicompat_completion_params_parse(
     }
 
     // Copy remaining properties to llama_params
-    // This allows user to use llama.cpp-specific params like "mirostat", "tfs_z",... via OAI endpoint.
+    // This allows user to use llama.cpp-specific params like "mirostat", ... via OAI endpoint.
     // See "launch_slot_with_task()" for a complete list of params supported by llama.cpp
     for (const auto & item : body.items()) {
         // Exception: if "n_predict" is present, we overwrite the value specified earlier by "max_tokens"
