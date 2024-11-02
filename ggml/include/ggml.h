@@ -558,10 +558,10 @@ extern "C" {
 
     enum ggml_log_level {
         GGML_LOG_LEVEL_NONE  = 0,
-        GGML_LOG_LEVEL_INFO  = 1,
-        GGML_LOG_LEVEL_WARN  = 2,
-        GGML_LOG_LEVEL_ERROR = 3,
-        GGML_LOG_LEVEL_DEBUG = 4,
+        GGML_LOG_LEVEL_DEBUG = 1,
+        GGML_LOG_LEVEL_INFO  = 2,
+        GGML_LOG_LEVEL_WARN  = 3,
+        GGML_LOG_LEVEL_ERROR = 4,
         GGML_LOG_LEVEL_CONT  = 5, // continue previous log
     };
 
@@ -653,14 +653,6 @@ extern "C" {
         // abort ggml_graph_compute when true
         ggml_abort_callback abort_callback;
         void *              abort_callback_data;
-    };
-
-    // scratch buffer
-    // TODO: deprecate and remove
-    struct ggml_scratch {
-        size_t offs;
-        size_t size;
-        void * data;
     };
 
     struct ggml_init_params {
@@ -766,7 +758,6 @@ extern "C" {
 
     GGML_API size_t  ggml_used_mem(const struct ggml_context * ctx);
 
-    GGML_API size_t  ggml_set_scratch (struct ggml_context * ctx, struct ggml_scratch scratch);
     GGML_API bool    ggml_get_no_alloc(struct ggml_context * ctx);
     GGML_API void    ggml_set_no_alloc(struct ggml_context * ctx, bool no_alloc);
 
