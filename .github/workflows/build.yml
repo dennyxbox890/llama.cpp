@@ -63,6 +63,14 @@ env:
 
 jobs:
 
+  # TODO: build with GGML_NO_METAL because test-backend-ops fail on "Apple Paravirtual device" and I don't know
+  #       how to debug it.
+  #       ref: https://github.com/ggerganov/llama.cpp/actions/runs/7131777249/job/19420981052#step:5:1124
+
+  # TODO: build with GGML_METAL=OFF because test-backend-ops fail on "Apple Paravirtual device" and I don't know
+  #       how to debug it.
+  #       ref: https://github.com/ggerganov/llama.cpp/actions/runs/7132125951/job/19422043567?pr=4359#step:5:6584
+  #       would be great if we fix these
 
     # CUDA Release
 
@@ -232,6 +240,7 @@ jobs:
 
     release:
         permissions: write-all
+
         if: ${{ ( github.event_name == 'push' && github.ref == 'refs/heads/master' ) || github.event.inputs.create_release == 'true' }}
 
         runs-on: ubuntu-latest
