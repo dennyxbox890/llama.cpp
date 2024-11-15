@@ -1,17 +1,4 @@
 include(CheckCXXCompilerFlag)
-#enable O3 flag
-if(NOT CMAKE_BUILD_TYPE)
-  set(CMAKE_BUILD_TYPE Release)
-endif()
-
-set(CMAKE_CXX_FLAGS "-Wall -Wextra -Wno-unused-variable -Wno-unused-function -Wno-error")
-set(CMAKE_CXX_FLAGS_DEBUG "-g")
-set(CMAKE_CXX_FLAGS_RELEASE "-Ofast")
-
-#add lto
-set(CMAKE_INTERPROCEDURAL_OPTIMIZATION TRUE)
-unset(GGML_CDEF_PUBLIC)
-
 add_compile_definitions(GGML_SCHED_MAX_COPIES=${GGML_SCHED_MAX_COPIES})
 
 # enable libstdc++ assertions for debug builds
