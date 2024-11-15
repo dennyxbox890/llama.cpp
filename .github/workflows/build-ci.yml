@@ -110,7 +110,7 @@ jobs:
                   export LD_LIBRARY_PATH=/usr/local/cuda-12.6/lib64 ${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
                   mkdir build
                   cd build
-                  cmake .. -DLLAMA_FATAL_WARNINGS=OFF -DBUILD_SHARED_LIBS=ON -DGGML_CUDA=ON -DLLAMA_CURL=ON -DGGML_RPC=ON
+                  cmake .. -DLLAMA_FATAL_WARNINGS=OFF -DBUILD_SHARED_LIBS=ON -DGGML_CUDA=ON
                   cmake --build . --config Release -j $(nproc)
 
             - name: Determine tag name
@@ -190,7 +190,7 @@ jobs:
                   export LD_LIBRARY_PATH=/usr/local/cuda-12.6/lib64 ${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
                   mkdir build
                   cd build
-                  cmake .. -DLLAMA_FATAL_WARNINGS=OFF -DBUILD_SHARED_LIBS=ON -DGGML_VULKAN=ON -DLLAMA_CURL=ON -DGGML_RPC=ON
+                  cmake .. -DLLAMA_FATAL_WARNINGS=OFF -DBUILD_SHARED_LIBS=ON -DGGML_VULKAN=ON
                   cmake --build . --config Release -j $(nproc)
 
             - name: Determine tag name
