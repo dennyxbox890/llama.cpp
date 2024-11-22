@@ -130,8 +130,6 @@ jobs:
               id: pack_artifacts
               if: ${{ ( github.event_name == 'push' && github.ref == 'refs/heads/master' ) || github.event.inputs.create_release == 'true' }}
               run: |
-                  cp LICENSE ./build/bin/
-                  cp $(find . -name "*.so") ./build/bin/
                   zip -r cudart-llama-${{ steps.tag.outputs.name }}-bin-ubuntu-x64.zip ./build/bin/*
 
             - name: Upload artifacts
