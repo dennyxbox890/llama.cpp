@@ -133,6 +133,7 @@ jobs:
                   cp LICENSE ./build/bin/
                   cp $(find . -name "libllama.so") ./build/bin/
                   cp $(find . -name "libggml.so") ./build/bin/
+                  cp $(find . -name "libggml-cpu.so") ./build/bin/
                   zip -r cudart-llama-${{ steps.tag.outputs.name }}-bin-ubuntu-x64.zip ./build/bin/*
 
             - name: Upload artifacts
@@ -213,6 +214,7 @@ jobs:
                   cp LICENSE ./build/bin/
                   cp $(find . -name "libllama.so") ./build/bin/
                   cp $(find . -name "libggml.so") ./build/bin/
+                  cp $(find . -name "libggml-cpu.so") ./build/bin/
                   zip -r vulkan-llama-${{ steps.tag.outputs.name }}-bin-ubuntu-x64.zip ./build/bin/*
 
             - name: Upload artifacts
