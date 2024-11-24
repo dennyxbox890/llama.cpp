@@ -110,7 +110,7 @@ jobs:
                   export LD_LIBRARY_PATH=/usr/local/cuda-12.6/lib64 ${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
                   mkdir build
                   cd build
-                  cmake .. -DLLAMA_FATAL_WARNINGS=OFF -DBUILD_SHARED_LIBS=OFF -DGGML_CUDA=ON
+                  cmake .. -DLLAMA_FATAL_WARNINGS=OFF -DBUILD_SHARED_LIBS=ON -DGGML_CUDA=ON
                   cmake --build . --config Release -j $(nproc)
 
             - name: Determine tag name
@@ -130,6 +130,8 @@ jobs:
               id: pack_artifacts
               if: ${{ ( github.event_name == 'push' && github.ref == 'refs/heads/master' ) || github.event.inputs.create_release == 'true' }}
               run: |
+                  cp LICENSE ./build/bin/
+                  cp $(find . -name "*.so") ./build/bin/
                   zip -r cudart-llama-${{ steps.tag.outputs.name }}-bin-ubuntu-x64.zip ./build/bin/*
 
             - name: Upload artifacts
