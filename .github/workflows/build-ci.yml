@@ -55,11 +55,11 @@ permissions: write-all
 
 env:
     BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
-    GGML_NLOOP: 3
-    GGML_N_THREADS: 1
-    LLAMA_LOG_COLORS: 1
-    LLAMA_LOG_PREFIX: 1
-    LLAMA_LOG_TIMESTAMPS: 1
+    #GGML_NLOOP: 3
+    #GGML_N_THREADS: 1
+    #LLAMA_LOG_COLORS: 1
+    #LLAMA_LOG_PREFIX: 1
+    #LLAMA_LOG_TIMESTAMPS: 1
 
 jobs:
     # CUDA Release
@@ -185,8 +185,6 @@ jobs:
             - name: Build
               id: cmake_build
               run: |
-                  export PATH=/usr/local/cuda-12.6/bin${PATH:+:${PATH}}
-                  export LD_LIBRARY_PATH=/usr/local/cuda-12.6/lib64 ${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
                   mkdir build
                   cd build
                   cmake .. -DLLAMA_FATAL_WARNINGS=OFF -DBUILD_SHARED_LIBS=ON -DGGML_VULKAN=ON
