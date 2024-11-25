@@ -65,7 +65,7 @@ jobs:
     # CUDA Release
 
     ubuntu-latest-cuda-cmake:
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-22.04
 
         steps:
             - name: Free Disk Space (Ubuntu)
