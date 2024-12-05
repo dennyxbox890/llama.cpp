@@ -65,7 +65,7 @@ jobs:
     # CUDA Release
 
     ubuntu-latest-cuda-cmake:
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-20.04
 
         steps:
             - name: Free Disk Space (Ubuntu)
@@ -80,7 +80,7 @@ jobs:
                   android: true
                   dotnet: true
                   haskell: true
-                  large-packages: true
+                  large-packages: false
                   docker-images: true
                   swap-storage: false
 
@@ -97,6 +97,7 @@ jobs:
                   sudo dpkg -i cuda-keyring_1.1-1_all.deb
                   sudo apt-get update
                   sudo apt-get install build-essential libcurl4-openssl-dev ccache cuda-toolkit-12-6 datacenter-gpu-manager cuda-drivers-fabricmanager
+                  sudo service nvidia-fabricmanager start
                   sudo apt install software-properties-common
                   sudo add-apt-repository ppa:ubuntu-toolchain-r/test
                   sudo apt update
