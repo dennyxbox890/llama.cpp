@@ -96,7 +96,9 @@ jobs:
                   wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64/cuda-keyring_1.1-1_all.deb
                   sudo dpkg -i cuda-keyring_1.1-1_all.deb
                   sudo apt-get update
-                  sudo apt-get install build-essential libcurl4-openssl-dev ccache cuda-toolkit-12-6
+                  sudo apt-get install build-essential libcurl4-openssl-dev ccache cuda-toolkit-12-6 datacenter-gpu-manager cuda-drivers-fabricmanager
+                  sudo nv-hostengine -t
+                  sudo service nvidia-fabricmanager start
                   sudo apt install software-properties-common
                   sudo add-apt-repository ppa:ubuntu-toolchain-r/test
                   sudo apt update
