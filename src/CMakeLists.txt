@@ -1,21 +1,3 @@
-#enable O3 flag
-if(NOT CMAKE_BUILD_TYPE)
-  set(CMAKE_BUILD_TYPE Release)
-endif()
-
-set(CMAKE_CXX_FLAGS "-Wall -Wextra -Wno-unused-variable -Wno-unused-function -Wno-error")
-set(CMAKE_CXX_FLAGS_DEBUG "-g")
-set(CMAKE_CXX_FLAGS_RELEASE "-Ofast")
-
-#add lto
-set(CMAKE_INTERPROCEDURAL_OPTIMIZATION TRUE)
-# TODO: should not use this
-if (WIN32)
-    if (BUILD_SHARED_LIBS)
-        set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
-    endif()
-endif()
-
 llama_add_compile_flags()
 
 #
